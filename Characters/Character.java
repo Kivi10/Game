@@ -14,8 +14,8 @@ public abstract class Character implements Step{
     protected int level;
     protected int experience;
 
-    protected int health;
-    protected int maxHealth;
+    protected int health = 100;
+    protected int maxHealth = 100;
     protected int strength;
     protected int armor;
     protected int speed = 1;

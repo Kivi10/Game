@@ -11,7 +11,7 @@ import Characters.Monk;
 import Characters.Peasent;
 import Characters.Spearman;
 import Characters.Warrior;
-import Characters.With;
+import Characters.Witch;
 import Characters.Data.Coordinates;
 import Characters.Data.Names;
 
@@ -24,8 +24,8 @@ public class Main {
     public static void main(String[] args) {
         init();
         Scanner input = new Scanner(System.in);
+        allTeam = sortTeam();
         while(true){
-            allTeam = sortTeam();
             View.view();
             input.nextLine();
             for (Character human : allTeam) {
@@ -65,7 +65,7 @@ public class Main {
             case 5:
                 return new Monk(coordinates);
             case 6:
-                return new With(coordinates);
+                return new Witch(coordinates);
             case 7:
                 return new Peasent(coordinates);
             default:

@@ -8,8 +8,6 @@ public class Warrior extends Character {
 
     public Warrior(Coordinates coordinates) {
         super(coordinates);
-        super.health = 100;
-        super.maxHealth = 100;
         super.strength = 10;
         super.armor = 30;
         super.initiative = 1;

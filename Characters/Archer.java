@@ -11,8 +11,6 @@ public class Archer extends Character {
 
     public Archer(Coordinates coordinates) {
         super(coordinates);
-        super.health = 100;
-        super.maxHealth = 100;
         super.strength = 15;
         super.armor = 30;
         super.initiative = 3;

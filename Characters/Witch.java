@@ -2,9 +2,8 @@ package Characters;
 
 import Characters.Data.Coordinates;
 
-public class Monk extends Character {
-    
-    public Monk(Coordinates coordinates) {
+public class Witch extends Character{
+    public Witch(Coordinates coordinates) {
         super(coordinates);
         super.strength = 15;
         super.armor = 30;
@@ -14,5 +13,5 @@ public class Monk extends Character {
     @Override
     public void step() {
    }
-
+    
 }

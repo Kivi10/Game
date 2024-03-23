@@ -6,11 +6,9 @@ public class Peasent extends Character{
 
     public Peasent(Coordinates coordinates) {
         super(coordinates);
-        super.health = 100;
-        super.maxHealth = 100;
-        super.strength = 5;
-        super.armor = 15;
-        super.initiative = 0;
+        super.strength = 15;
+        super.armor = 30;
+        super.initiative = 3;
     }
 
     public void attack(){};
