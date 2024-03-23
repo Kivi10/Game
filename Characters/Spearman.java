@@ -1,5 +1,15 @@
 package Characters;
 
-public class Spearman {
-    
+import Characters.Data.Coordinates;
+
+public class Spearman extends Character{
+
+    public Spearman(String name, Coordinates coordinates) {
+        super(name, coordinates);
+    }
+
+    @Override
+    public void step() {
+   }
+   
 }
