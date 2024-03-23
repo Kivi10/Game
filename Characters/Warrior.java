@@ -1,12 +1,13 @@
 package Characters;
 
+import java.util.ArrayList;
+
 import Characters.Data.Coordinates;
-import Characters.Data.TeamCreator;
 
 public class Warrior extends Character {
 
-    public Warrior(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Warrior(Coordinates coordinates) {
+        super(coordinates);
         super.health = 100;
         super.maxHealth = 100;
         super.strength = 10;
@@ -23,7 +24,7 @@ public class Warrior extends Character {
     public void heal() {
     }
    
-    public void step(TeamCreator enemies) {
+    public void step(ArrayList<Character> enemies) {
         if (this.health <= 0) {
             System.out.println("Пропуск хода.");
             return; 

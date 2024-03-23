@@ -1,12 +1,15 @@
 package Characters;
 
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import Characters.Data.Coordinates;
+import Characters.Data.Names;
 import Characters.Data.Step;
-import Characters.Data.TeamCreator;
 
 public abstract class Character implements Step{
-    protected String name;
+    protected String name = getName();
 
     protected int level;
     protected int experience;
@@ -15,14 +18,14 @@ public abstract class Character implements Step{
     protected int maxHealth;
     protected int strength;
     protected int armor;
+    protected int speed = 1;
 
     protected Coordinates coordinates;
 
     protected int initiative;
 
 
-    public Character(String name, Coordinates coordinates) {
-        this.name = name;
+    public Character(Coordinates coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -67,7 +70,7 @@ public abstract class Character implements Step{
         }
     }
 
-    public Character findNearestEnemy(TeamCreator enemies) {
+    public Character findNearestEnemy(ArrayList<Character> enemies) {
         double nearestDistance = Double.MAX_VALUE;
         Character nearestEnemy = null;
         
@@ -89,6 +92,29 @@ public abstract class Character implements Step{
 
     public int getInitiative() {
         return initiative;
+    }
+
+    public int[] getCoords(){
+        int[] coords = new int[2];
+        coords[0] = coordinates.getX();
+        coords[1] = coordinates.getY();
+        return coords;
+    }
+
+    public int getHp(){
+        return health;
+    }
+
+    public int getSpeed(){
+        return speed;
+    }
+
+    public String getInfo(){
+        return this.getClass().getSimpleName();
+    }
+
+    private String getName(){
+        return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);  
     }
 
 }

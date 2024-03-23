@@ -4,8 +4,8 @@ import Characters.Data.Coordinates;
 
 public class Crossbowman extends Character{
     
-    public Crossbowman(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Crossbowman(Coordinates coordinates) {
+        super(coordinates);
     }
 
     @Override

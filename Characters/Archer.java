@@ -1,15 +1,16 @@
 package Characters;
 
+import java.util.ArrayList;
+
 import Characters.Data.Coordinates;
-import Characters.Data.TeamCreator;
 
 public class Archer extends Character {
     
     protected int arrows = 10;
     boolean isAlive = true;
 
-    public Archer(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Archer(Coordinates coordinates) {
+        super(coordinates);
         super.health = 100;
         super.maxHealth = 100;
         super.strength = 15;
@@ -17,7 +18,7 @@ public class Archer extends Character {
         super.initiative = 3;
     }
 
-    public void step(TeamCreator enemies) {
+    public void step(ArrayList<Character> enemies) {
         if (this.health <= 0 || this.arrows <= 0) {
             System.out.println("Пропуск хода.");
             return; 

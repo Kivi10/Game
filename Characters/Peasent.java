@@ -4,8 +4,8 @@ import Characters.Data.Coordinates;
 
 public class Peasent extends Character{
 
-    public Peasent(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Peasent(Coordinates coordinates) {
+        super(coordinates);
         super.health = 100;
         super.maxHealth = 100;
         super.strength = 5;

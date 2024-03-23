@@ -1,8 +1,8 @@
 package Characters.Data;
 
 public class Coordinates {
-    private int x;
-    private int y;
+    private int x, y;
+    // private int[] array = {x,y};
 
     public Coordinates(int x, int y) {
         this.x = x;

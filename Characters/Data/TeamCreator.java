@@ -19,36 +19,35 @@ public class TeamCreator{
 
     ArrayList<Character> team = new ArrayList<>();
 
-    public static Character createRandomCharacter(String name, Coordinates coordinates) {
+    public static Character createRandomCharacter(Coordinates coordinates) {
         int randomType = random.nextInt(8);
 
         switch (randomType) {
             case 0:
-                return new Archer(name, coordinates);
+                return new Archer(coordinates);
             case 1:
-                return new Magician(name, coordinates);
+                return new Magician(coordinates);
             case 2:
-                return new Warrior(name, coordinates);
+                return new Warrior(coordinates);
             case 3:
-                return new Crossbowman(name, coordinates);
+                return new Crossbowman(coordinates);
             case 4:
-                return new Spearman(name, coordinates);
+                return new Spearman(coordinates);
             case 5:
-                return new Monk(name, coordinates);
+                return new Monk(coordinates);
             case 6:
-                return new Crossbowman(name, coordinates);
+                return new Crossbowman(coordinates);
             case 7:
-                return new Crossbowman(name, coordinates);
+                return new Crossbowman(coordinates);
             default:
-                return new Archer(name, coordinates); 
+                return new Archer(coordinates); 
         }
     }
 
     public ArrayList<Character> createTeam(int teamSize, Coordinates teamCoordinates) {
         for (int i = 0; i < teamSize; i++) {
-            String name = getName();
             Coordinates coordinates = new Coordinates(teamCoordinates.getX() + i, teamCoordinates.getY());
-            team.add(createRandomCharacter(name, coordinates));
+            team.add(createRandomCharacter(coordinates));
             size ++;
         }
         return team;

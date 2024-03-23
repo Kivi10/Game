@@ -3,8 +3,8 @@ package Characters;
 import Characters.Data.Coordinates;
 
 public class With extends Character{
-    public With(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public With(Coordinates coordinates) {
+        super(coordinates);
     }
 
     @Override

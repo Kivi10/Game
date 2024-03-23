@@ -1,19 +1,88 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
+import java.util.Scanner;
+
+import Characters.Character;
+import Characters.Archer;
+import Characters.Crossbowman;
+import Characters.Magician;
+import Characters.Monk;
+import Characters.Peasent;
+import Characters.Spearman;
 import Characters.Warrior;
+import Characters.With;
 import Characters.Data.Coordinates;
-import Characters.Data.TeamCreator;
+import Characters.Data.Names;
 
 public class Main {
+    public static ArrayList<Character> darkTeam = new ArrayList<>();
+    public static ArrayList<Character> holyTeam = new ArrayList<>();
+    public static ArrayList<Character> allTeam = new ArrayList<>();
+    public static int units = 10;
+
     public static void main(String[] args) {
-        Coordinates coor1 = new Coordinates(1, 1);
-        Coordinates coor2 = new Coordinates(7, 9);
-        TeamCreator team1 = new TeamCreator();
-        TeamCreator team2 = new TeamCreator();
-        team1.createTeam(10, coor1);
-        team2.createTeam(10, coor2);
-        team1.getTeamList();
-        team2.getTeamList();
-        Warrior bob = new Warrior("Bob", coor1);
-        bob.findNearestEnemy(team2);
-        bob.step(team2);
+        init();
+        Scanner input = new Scanner(System.in);
+        while(true){
+            allTeam = sortTeam();
+            View.view();
+            input.nextLine();
+            for (Character human : allTeam) {
+                if (holyTeam.contains(human)) {human.step();}
+                else human.step();
+            }
+        }
+
+    }
+
+    public String getName(){
+        return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);  
+    }
+
+    public static void init(){
+        for (int i = 0; i < units; i++) {
+            darkTeam.add(createRandomCharacter(new Coordinates(i+1, 1)));
+            holyTeam.add(createRandomCharacter(new Coordinates(i+1, 10)));
+        }
+    }
+
+    public static Character createRandomCharacter(Coordinates coordinates) {
+        Random random = new Random();
+        int randomType = random.nextInt(8);
+
+        switch (randomType) {
+            case 0:
+                return new Archer(coordinates);
+            case 1:
+                return new Magician(coordinates);
+            case 2:
+                return new Warrior(coordinates);
+            case 3:
+                return new Crossbowman(coordinates);
+            case 4:
+                return new Spearman(coordinates);
+            case 5:
+                return new Monk(coordinates);
+            case 6:
+                return new With(coordinates);
+            case 7:
+                return new Peasent(coordinates);
+            default:
+                return new Archer(coordinates); 
+        }
+    }
+    public static ArrayList<Character> sortTeam(){
+        ArrayList<Character> list = new ArrayList<>();
+        list.addAll(darkTeam);
+        list.addAll(holyTeam);
+        list.sort(new Comparator<Character>() {
+            @Override
+            public int compare(Character o1, Character o2) {
+                if (o2.getSpeed() == o1.getSpeed()) return (int)(o2.getHp() - o1.getHp());
+                else return (int)(o2.getSpeed() - o1.getSpeed());
+            }
+        });
+        return list;
     }
 }

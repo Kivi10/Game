@@ -4,8 +4,8 @@ import Characters.Data.Coordinates;
 
 public class Monk extends Character {
     
-    public Monk(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Monk(Coordinates coordinates) {
+        super(coordinates);
     }
 
     @Override

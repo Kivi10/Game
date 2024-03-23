@@ -4,8 +4,8 @@ import Characters.Data.Coordinates;
 
 public class Spearman extends Character{
 
-    public Spearman(String name, Coordinates coordinates) {
-        super(name, coordinates);
+    public Spearman(Coordinates coordinates) {
+        super(coordinates);
     }
 
     @Override
