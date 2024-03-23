@@ -17,22 +17,6 @@ public class Archer extends Character {
         super.initiative = 3;
     }
 
-    public Character findNearestEnemy(TeamCreator enemies) {
-        double nearestDistance = Double.MAX_VALUE;
-        Character nearestEnemy = null;
-        
-        for (int i = 0; i < enemies.size(); i++) {
-            double distance = this.coordinates.distanceTo(enemies.get(i).coordinates);
-            if (distance < nearestDistance) {
-                nearestDistance = distance;
-                nearestEnemy = enemies.get(i);
-            }
-        }
-
-        System.out.println("Ближайший противник для " + this.name + " - " + nearestEnemy.name);
-        return nearestEnemy;
-    }
-
     public void step(TeamCreator enemies) {
         if (this.health <= 0 || this.arrows <= 0) {
             System.out.println("Пропуск хода.");

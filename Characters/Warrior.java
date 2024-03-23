@@ -1,6 +1,7 @@
 package Characters;
 
 import Characters.Data.Coordinates;
+import Characters.Data.TeamCreator;
 
 public class Warrior extends Character {
 
@@ -8,7 +9,7 @@ public class Warrior extends Character {
         super(name, coordinates);
         super.health = 100;
         super.maxHealth = 100;
-        super.strength = 15;
+        super.strength = 10;
         super.armor = 30;
         super.initiative = 1;
     }
@@ -22,8 +23,19 @@ public class Warrior extends Character {
     public void heal() {
     }
    
-    @Override
-    public void step() {
-   }
-   
+    public void step(TeamCreator enemies) {
+        if (this.health <= 0) {
+            System.out.println("Пропуск хода.");
+            return; 
+        }
+
+        Character nearestEnemy = findNearestEnemy(enemies);
+
+    if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 1 && Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 1) {
+        System.out.println("Нанесение урона.");
+        attack(nearestEnemy);
+    } else {
+        coordinates.moveTo(nearestEnemy.coordinates);
+    }
+    }   
 }

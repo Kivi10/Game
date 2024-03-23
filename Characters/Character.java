@@ -1,11 +1,9 @@
 package Characters;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 import Characters.Data.Coordinates;
-import Characters.Data.Names;
 import Characters.Data.Step;
+import Characters.Data.TeamCreator;
 
 public abstract class Character implements Step{
     protected String name;
@@ -17,7 +15,9 @@ public abstract class Character implements Step{
     protected int maxHealth;
     protected int strength;
     protected int armor;
+
     protected Coordinates coordinates;
+
     protected int initiative;
 
 
@@ -65,6 +65,22 @@ public abstract class Character implements Step{
             this.health = Math.min(this.maxHealth, this.health + amount);
             System.out.println(this.getClass().getSimpleName() + " был вылечен на " + amount + " единиц здоровья.");
         }
+    }
+
+    public Character findNearestEnemy(TeamCreator enemies) {
+        double nearestDistance = Double.MAX_VALUE;
+        Character nearestEnemy = null;
+        
+        for (int i = 0; i < enemies.size(); i++) {
+            double distance = this.coordinates.distanceTo(enemies.get(i).coordinates);
+            if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestEnemy = enemies.get(i);
+            }
+        }
+
+        System.out.println("Ближайший противник для " + this.name + " - " + nearestEnemy.name);
+        return nearestEnemy;
     }
 
     public void healComrade(Character target, int amount) {
