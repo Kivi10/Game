@@ -11,6 +11,8 @@ import Characters.Data.Step;
 public abstract class Character implements Step{
     protected String name = getName();
 
+    public boolean isAlive = true;
+
     protected int level;
     protected int experience;
 
@@ -32,14 +34,21 @@ public abstract class Character implements Step{
     public Character() {
         super();
     }
+    public void step(){
+        
+    }
 
-    @Override
-    public void step() {
-   }
+    public boolean deathCheck(){
+        if (this.health <= 0) {
+            isAlive = false;
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ' ' + this.name;
+        return this.getClass().getSimpleName() + ' ' + this.name + ", HP: " + getHp() + " Coords: " + coordinates.toString();
     }
 
     public void getStats() {
@@ -59,7 +68,6 @@ public abstract class Character implements Step{
         this.health -= damage;
         if (this.health <= 0) {
             this.health = 0;
-            System.out.println(this.name + " был повержен!");
         }
     }
 
@@ -76,13 +84,12 @@ public abstract class Character implements Step{
         
         for (int i = 0; i < enemies.size(); i++) {
             double distance = this.coordinates.distanceTo(enemies.get(i).coordinates);
-            if (distance < nearestDistance) {
+            if (distance < nearestDistance && enemies.get(i).health > 0) {
                 nearestDistance = distance;
                 nearestEnemy = enemies.get(i);
             }
         }
 
-        System.out.println("Ближайший противник для " + this.name + " - " + nearestEnemy.name);
         return nearestEnemy;
     }
 
@@ -115,6 +122,10 @@ public abstract class Character implements Step{
 
     private String getName(){
         return String.valueOf(Names.values()[new Random().nextInt(Names.values().length-1)]);  
+    }
+
+    public void step(ArrayList<Character> holyTeam) {
+        throw new UnsupportedOperationException("Unimplemented method 'step'");
     }
 
 }

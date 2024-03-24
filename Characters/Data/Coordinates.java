@@ -2,7 +2,6 @@ package Characters.Data;
 
 public class Coordinates {
     private int x, y;
-    // private int[] array = {x,y};
 
     public Coordinates(int x, int y) {
         this.x = x;
@@ -11,6 +10,15 @@ public class Coordinates {
 
     public int getX() {return x;}
     public int getY() {return y;}
+
+    public void setCoordinates(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public String toString() {
+        return x + ", " + y;
+    }
 
     public double distanceTo(Coordinates other) {
         // реализация расчета расстояния между координатами
@@ -26,7 +34,6 @@ public class Coordinates {
         } else {
             y += Integer.signum(dY);
         }
-        System.out.println("Движение к противику.");
     }
 }
 

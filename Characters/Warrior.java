@@ -6,6 +6,8 @@ import Characters.Data.Coordinates;
 
 public class Warrior extends Character {
 
+    public boolean isAlive = true;
+
     public Warrior(Coordinates coordinates) {
         super(coordinates);
         super.strength = 10;
@@ -21,20 +23,20 @@ public class Warrior extends Character {
 
     public void heal() {
     }
-   
+
     public void step(ArrayList<Character> enemies) {
         if (this.health <= 0) {
-            System.out.println("Пропуск хода.");
             return; 
         }
 
         Character nearestEnemy = findNearestEnemy(enemies);
 
-    if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 1 && Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 1) {
-        System.out.println("Нанесение урона.");
+    if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 1 && 
+        Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 1  && 
+        nearestEnemy.health > 0) {
         attack(nearestEnemy);
     } else {
         coordinates.moveTo(nearestEnemy.coordinates);
     }
-    }   
+    }
 }

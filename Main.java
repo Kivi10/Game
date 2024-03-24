@@ -22,17 +22,32 @@ public class Main {
     public static int units = 10;
 
     public static void main(String[] args) {
-        init();
-        Scanner input = new Scanner(System.in);
-        allTeam = sortTeam();
-        while(true){
-            View.view();
-            input.nextLine();
-            for (Character human : allTeam) {
-                if (holyTeam.contains(human)) {human.step();}
-                else human.step();
+    init();
+    Scanner input = new Scanner(System.in);
+    allTeam = sortTeam();
+    boolean victory = false;
+while (!victory) {
+    View.view();
+    input.nextLine();
+    for (Character human : allTeam) {
+        if (holyTeam.contains(human)) {
+            if (human.findNearestEnemy(darkTeam) == null) {
+                System.out.println("Светлая команда победила!!!");
+                victory = true;
+                break;
             }
+            human.step(darkTeam);
+        } else {
+            if (human.findNearestEnemy(holyTeam) == null) {
+                System.out.println("Темная команда победила!!!");
+                victory = true;
+                break;
+            } 
+            human.step(holyTeam);  
         }
+    }
+    System.out.println();
+}
 
     }
 
@@ -41,37 +56,72 @@ public class Main {
     }
 
     public static void init(){
-        for (int i = 0; i < units; i++) {
-            darkTeam.add(createRandomCharacter(new Coordinates(i+1, 1)));
-            holyTeam.add(createRandomCharacter(new Coordinates(i+1, 10)));
-        }
-    }
-
-    public static Character createRandomCharacter(Coordinates coordinates) {
         Random random = new Random();
-        int randomType = random.nextInt(8);
-
-        switch (randomType) {
-            case 0:
-                return new Archer(coordinates);
-            case 1:
-                return new Magician(coordinates);
-            case 2:
-                return new Warrior(coordinates);
-            case 3:
-                return new Crossbowman(coordinates);
-            case 4:
-                return new Spearman(coordinates);
-            case 5:
-                return new Monk(coordinates);
-            case 6:
-                return new Witch(coordinates);
-            case 7:
-                return new Peasent(coordinates);
-            default:
-                return new Archer(coordinates); 
+        for (int i = 0; i < units; i++) {
+            int randomType = random.nextInt(8);
+            switch (randomType) {
+                case 0:
+                    darkTeam.add(new Archer(new Coordinates(i+1, 1)));
+                    break;
+                case 1:
+                    darkTeam.add(new Magician(new Coordinates(i+1, 1)));
+                    break;
+                case 2:
+                    darkTeam.add(new Warrior(new Coordinates(i+1, 1)));
+                    break;
+                case 3:
+                    darkTeam.add(new Crossbowman(new Coordinates(i+1, 1)));
+                    break;
+                case 4:
+                    darkTeam.add(new Spearman(new Coordinates(i+1, 1)));
+                    break;
+                case 5:
+                    darkTeam.add(new Monk(new Coordinates(i+1, 1)));
+                    break;
+                case 6:
+                    darkTeam.add(new Witch(new Coordinates(i+1, 1)));
+                    break;
+                case 7:
+                    darkTeam.add(new Peasent(new Coordinates(i+1, 1)));
+                    break;
+                default:
+                    darkTeam.add(new Archer(new Coordinates(i+1, 1)));
+                    break;
+            }
+            
+            randomType = random.nextInt(8);
+            switch (randomType) {
+                case 0:
+                holyTeam.add(new Archer(new Coordinates(i+1, 10)));
+                    break;
+                case 1:
+                    holyTeam.add(new Magician(new Coordinates(i+1, 10)));
+                    break;
+                case 2:
+                    holyTeam.add(new Warrior(new Coordinates(i+1, 10)));
+                    break;
+                case 3:
+                    holyTeam.add(new Crossbowman(new Coordinates(i+1, 10)));
+                    break;
+                case 4:
+                    holyTeam.add(new Spearman(new Coordinates(i+1, 10)));
+                    break;
+                case 5:
+                    holyTeam.add(new Monk(new Coordinates(i+1, 10)));
+                    break;
+                case 6:
+                    holyTeam.add(new Witch(new Coordinates(i+1, 10)));
+                    break;
+                case 7:
+                    holyTeam.add(new Peasent(new Coordinates(i+1, 10)));
+                    break;
+                default:
+                    holyTeam.add(new Archer(new Coordinates(i+1, 10)));
+                    break;
+            }
         }
     }
+
     public static ArrayList<Character> sortTeam(){
         ArrayList<Character> list = new ArrayList<>();
         list.addAll(darkTeam);

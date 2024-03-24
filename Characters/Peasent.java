@@ -1,8 +1,12 @@
 package Characters;
 
+import java.util.ArrayList;
+
 import Characters.Data.Coordinates;
 
 public class Peasent extends Character{
+
+    public boolean isAlive = true;
 
     public Peasent(Coordinates coordinates) {
         super(coordinates);
@@ -14,8 +18,21 @@ public class Peasent extends Character{
     public void attack(){};
     public void heal(){};
 
-    @Override
-    public void step() {
-   }
+    public void step(ArrayList<Character> enemies) {
+        if (this.health <= 0) {
+            return; 
+        }
+
+        Character nearestEnemy = findNearestEnemy(enemies);
+
+    if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 1 && 
+        Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 1  && 
+        nearestEnemy.health > 0) {
+            attack(nearestEnemy);
+    } else {
+        coordinates.moveTo(nearestEnemy.coordinates);
+    }
+    }   
    
+    // public void giveArrow
 }

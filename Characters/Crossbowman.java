@@ -1,8 +1,14 @@
 package Characters;
 
+import java.util.ArrayList;
+
 import Characters.Data.Coordinates;
 
 public class Crossbowman extends Character{
+    
+    public boolean isAlive = true;
+
+    protected int arrows = 10;
     
     public Crossbowman(Coordinates coordinates) {
         super(coordinates);
@@ -11,7 +17,15 @@ public class Crossbowman extends Character{
         super.initiative = 3;
     }
 
-    @Override
-    public void step() {
-   }
+    public void step(ArrayList<Character> enemies) {
+        if (this.health <= 0 || this.arrows <= 0) {
+            return; 
+        }
+
+        Character nearestEnemy = findNearestEnemy(enemies);
+        if (nearestEnemy != null) {
+            attack(nearestEnemy); 
+            arrows --;
+        }
+    }
 }

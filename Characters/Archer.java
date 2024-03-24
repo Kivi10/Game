@@ -7,7 +7,7 @@ import Characters.Data.Coordinates;
 public class Archer extends Character {
     
     protected int arrows = 10;
-    boolean isAlive = true;
+    public boolean isAlive = true;
 
     public Archer(Coordinates coordinates) {
         super(coordinates);
@@ -15,10 +15,9 @@ public class Archer extends Character {
         super.armor = 30;
         super.initiative = 3;
     }
-
+    
     public void step(ArrayList<Character> enemies) {
         if (this.health <= 0 || this.arrows <= 0) {
-            System.out.println("Пропуск хода.");
             return; 
         }
 
@@ -26,7 +25,6 @@ public class Archer extends Character {
         if (nearestEnemy != null) {
             attack(nearestEnemy); 
             arrows --;
-            System.out.println("Персонаж " + this.name + " выстрелил в " + nearestEnemy.name);
         }
     }
 
@@ -34,4 +32,11 @@ public class Archer extends Character {
     public void getStats() {
         super.getStats();
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ' ' + this.name + ", HP: " + getHp() + " Coords: " + coordinates.toString() + ", Arrows: " + arrows;
+    }
+
+    
 }
