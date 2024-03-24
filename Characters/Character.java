@@ -6,6 +6,7 @@ import java.util.Random;
 
 import Characters.Data.Coordinates;
 import Characters.Data.Names;
+import Characters.Data.Spell;
 import Characters.Data.Step;
 
 public abstract class Character implements Step{
@@ -20,6 +21,8 @@ public abstract class Character implements Step{
     protected int maxHealth = 100;
     protected int strength;
     protected int armor;
+    protected int ammo;
+    protected int mana;
     protected int speed = 1;
 
     protected Coordinates coordinates;
@@ -62,7 +65,10 @@ public abstract class Character implements Step{
     public void attack(Character target){
         int damage = this.strength;
         target.receiveDamage(damage);
-    };
+    }
+
+    public void castSpell(Spell spell, Character target) {
+    }
 
     public void receiveDamage(int damage) {
         this.health -= damage;
@@ -74,23 +80,30 @@ public abstract class Character implements Step{
     public void heal(int amount) {
         if (this.health < this.maxHealth) {
             this.health = Math.min(this.maxHealth, this.health + amount);
-            System.out.println(this.getClass().getSimpleName() + " был вылечен на " + amount + " единиц здоровья.");
         }
     }
 
-    public Character findNearestEnemy(ArrayList<Character> enemies) {
+    public void healing(ArrayList<Character> teamates) {
+    } 
+
+    public Character findNearestUnit(ArrayList<Character> units) {
         double nearestDistance = Double.MAX_VALUE;
-        Character nearestEnemy = null;
+        Character nearestUnit = null;
         
-        for (int i = 0; i < enemies.size(); i++) {
-            double distance = this.coordinates.distanceTo(enemies.get(i).coordinates);
-            if (distance < nearestDistance && enemies.get(i).health > 0) {
+        for (int i = 0; i < units.size(); i++) {
+            double distance = this.coordinates.distanceTo(units.get(i).coordinates);
+            if (distance < nearestDistance && units.get(i).health > 0) {
                 nearestDistance = distance;
-                nearestEnemy = enemies.get(i);
+                nearestUnit = units.get(i);
             }
         }
 
-        return nearestEnemy;
+        return nearestUnit;
+    }
+
+    public double distanceTo(Character target){
+        double distanceToTarget = distanceTo(target);
+        return distanceToTarget;
     }
 
     public void healComrade(Character target, int amount) {

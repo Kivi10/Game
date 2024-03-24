@@ -24,12 +24,12 @@ public class Warrior extends Character {
     public void heal() {
     }
 
-    public void step(ArrayList<Character> enemies) {
+    public void step(ArrayList<Character> units) {
         if (this.health <= 0) {
             return; 
         }
 
-        Character nearestEnemy = findNearestEnemy(enemies);
+        Character nearestEnemy = findNearestUnit(units);
 
     if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 1 && 
         Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 1  && 

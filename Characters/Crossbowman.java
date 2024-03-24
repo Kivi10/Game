@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import Characters.Data.Coordinates;
 
 public class Crossbowman extends Character{
-    
+
     public boolean isAlive = true;
 
-    protected int arrows = 10;
+    protected int ammo = 10;
     
     public Crossbowman(Coordinates coordinates) {
         super(coordinates);
@@ -17,15 +17,31 @@ public class Crossbowman extends Character{
         super.initiative = 3;
     }
 
-    public void step(ArrayList<Character> enemies) {
-        if (this.health <= 0 || this.arrows <= 0) {
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ' ' + this.name + ", HP: " + getHp() + " Coords: " + coordinates.toString() + ", Arrows: " + ammo;
+    }
+
+    public void step(ArrayList<Character> units) {
+        if (this.health <= 0 || this.ammo <= 0) {
             return; 
         }
 
-        Character nearestEnemy = findNearestEnemy(enemies);
+        Character nearestEnemy = findNearestUnit(units);
         if (nearestEnemy != null) {
-            attack(nearestEnemy); 
-            arrows --;
+            if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 7 && 
+                Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 7  && 
+                nearestEnemy.health > 0) {
+                attack(nearestEnemy); 
+                ammo --;
+            } else {
+            coordinates.moveTo(nearestEnemy.coordinates);
+            }
+            
         }
+    }
+
+    protected void increaseArrows(){
+        ammo++;
     }
 }

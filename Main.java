@@ -31,18 +31,32 @@ while (!victory) {
     input.nextLine();
     for (Character human : allTeam) {
         if (holyTeam.contains(human)) {
-            if (human.findNearestEnemy(darkTeam) == null) {
+            if (human.findNearestUnit(darkTeam) == null) {
                 System.out.println("Светлая команда победила!!!");
                 victory = true;
                 break;
             }
+            if (human instanceof Peasent) {
+                human.step(holyTeam);
+            }
+            if (human instanceof Magician && human instanceof Monk) {
+                Character nearstUnitDark = human.findNearestUnit(darkTeam);
+                Character nearstUnitHoly = human.findNearestUnit(holyTeam);
+                double distanceToTarget1 = human.distanceTo(nearstUnitDark);
+                double distanceToTarget2 = human.distanceTo(nearstUnitHoly);
+                if (distanceToTarget1 < distanceToTarget2) {human.step(darkTeam);}
+                else {human.healing(holyTeam);}
+            }
             human.step(darkTeam);
         } else {
-            if (human.findNearestEnemy(holyTeam) == null) {
+            if (human.findNearestUnit(holyTeam) == null) {
                 System.out.println("Темная команда победила!!!");
                 victory = true;
                 break;
             } 
+            if (human instanceof Peasent) {
+                human.step(darkTeam);
+            }
             human.step(holyTeam);  
         }
     }

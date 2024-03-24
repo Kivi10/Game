@@ -6,7 +6,7 @@ import Characters.Data.Coordinates;
 
 public class Archer extends Character {
     
-    protected int arrows = 10;
+    protected int ammo = 10;
     public boolean isAlive = true;
 
     public Archer(Coordinates coordinates) {
@@ -16,15 +16,22 @@ public class Archer extends Character {
         super.initiative = 3;
     }
     
-    public void step(ArrayList<Character> enemies) {
-        if (this.health <= 0 || this.arrows <= 0) {
+    public void step(ArrayList<Character> units) {
+        if (this.health <= 0 || this.ammo <= 0) {
             return; 
         }
 
-        Character nearestEnemy = findNearestEnemy(enemies);
+        Character nearestEnemy = findNearestUnit(units);
         if (nearestEnemy != null) {
-            attack(nearestEnemy); 
-            arrows --;
+            if (Math.abs(super.coordinates.getX() - nearestEnemy.coordinates.getX()) <= 7 && 
+                Math.abs(super.coordinates.getY() - nearestEnemy.coordinates.getY()) <= 7  && 
+                nearestEnemy.health > 0) {
+                attack(nearestEnemy); 
+                ammo --;
+            } else {
+            coordinates.moveTo(nearestEnemy.coordinates);
+            }
+            
         }
     }
 
@@ -35,8 +42,11 @@ public class Archer extends Character {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + ' ' + this.name + ", HP: " + getHp() + " Coords: " + coordinates.toString() + ", Arrows: " + arrows;
+        return this.getClass().getSimpleName() + ' ' + this.name + ", HP: " + getHp() + " Coords: " + coordinates.toString() + ", Arrows: " + ammo;
     }
 
+    protected void increaseArrows(){
+        ammo++;
+    }
     
 }
